@@ -30,7 +30,6 @@ function App() {
     const data = await res.json();
     // console.log(data.results[0]);
     setUserData(data.results[0]);
-    
   };
 
   useEffect(() => {
@@ -40,6 +39,7 @@ function App() {
   const [userTitle, setUserTitle] = useState("");
   const updateUserTitle = (value) => {
     setUserTitle(value);
+    console.log();
   };
 
   const handleName = () => {
@@ -68,8 +68,14 @@ function App() {
   };
 
   const handlePassword = () => {
-    const value = `My username is ${userData.login.username}`;
+    const value = `My password is ${userData.login.username}`;
     updateUserTitle(value);
+  };
+
+  const [newUserData, setNewUserData] = useState([]);
+
+  const handleNewUser = (userData) => {
+    setNewUserData([...newUserData, userData]);
   };
 
   return (
@@ -86,10 +92,10 @@ function App() {
             className="user-img"
           />
           <p className="user-title">
-           
-            {(userTitle)||(userData.name.first
-              ? userData.name.first + " " + userData.name.last
-              : "")}
+            {userTitle ||
+              (userData.name.first
+                ? userData.name.first + " " + userData.name.last
+                : "")}
           </p>
           {/* <p className="user-value">{userTitle}</p> */}
           <div className="values-list">
@@ -136,11 +142,10 @@ function App() {
             <button className="btn" type="button" onClick={getUser}>
               new user
             </button>
-            <button className="btn" type="button" onClick={(e) => setUserData(e)}>
+            <button className="btn" type="button" onClick={() => handleNewUser(userData)}>
               add user
             </button>
           </div>
-
           <table className="table">
             <thead>
               <tr className="head-tr">
@@ -152,14 +157,15 @@ function App() {
             </thead>
 
             <tbody>
-              <tr className="body-tr">
-                <td className="td">{userData.name.first}</td>
-                <td className="td">{userData.email}</td>
-                <td className="td">{userData.phone}</td>
-                <td className="td">{userData.dob.age}</td>
-              </tr>
+              {newUserData.map((user, index) => (
+                <tr className="body-tr" key={index}>
+                  <td className="td">{user.name.first}</td>
+                  <td className="td">{user.email}</td>
+                  <td className="td">{user.phone}</td>
+                  <td className="td">{user.dob.age}</td>
+                </tr>
+              ))}
             </tbody>
-            
           </table>
         </div>
       </div>
