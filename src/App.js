@@ -3,7 +3,7 @@ import React from "react";
 import mailSvg from "./assets/mail.svg";
 import manSvg from "./assets/man.svg";
 import womanSvg from "./assets/woman.svg";
-import manAgeSvg from "./assets/growing-up-man.svg";
+// import manAgeSvg from "./assets/growing-up-man.svg";
 import womanAgeSvg from "./assets/growing-up-woman.svg";
 import mapSvg from "./assets/map.svg";
 import phoneSvg from "./assets/phone.svg";
@@ -30,6 +30,7 @@ function App() {
     const data = await res.json();
     // console.log(data.results[0]);
     setUserData(data.results[0]);
+    
   };
 
   useEffect(() => {
@@ -85,12 +86,12 @@ function App() {
             className="user-img"
           />
           <p className="user-title">
-            My name is{" "}
-            {userData.name && userData.name.first
+           
+            {(userTitle)||(userData.name.first
               ? userData.name.first + " " + userData.name.last
-              : ""}
+              : "")}
           </p>
-          <p className="user-value">{userTitle}</p>
+          {/* <p className="user-value">{userTitle}</p> */}
           <div className="values-list">
             <button className="icon" data-label="name" onMouseOver={handleName}>
               {userData.gender === "male" ? (
@@ -132,10 +133,10 @@ function App() {
             </button>
           </div>
           <div className="btn-group">
-            <button className="btn" type="button">
+            <button className="btn" type="button" onClick={getUser}>
               new user
             </button>
-            <button className="btn" type="button">
+            <button className="btn" type="button" onClick={(e) => setUserData(e)}>
               add user
             </button>
           </div>
@@ -149,9 +150,16 @@ function App() {
                 <th className="th">Age</th>
               </tr>
             </thead>
+
             <tbody>
-              <tr className="body-tr"></tr>
+              <tr className="body-tr">
+                <td className="td">{userData.name.first}</td>
+                <td className="td">{userData.email}</td>
+                <td className="td">{userData.phone}</td>
+                <td className="td">{userData.dob.age}</td>
+              </tr>
             </tbody>
+            
           </table>
         </div>
       </div>

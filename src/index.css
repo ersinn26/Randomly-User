@@ -167,6 +167,7 @@ p {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   justify-content: center;
+  margin-top: 1rem;
 }
 .icon {
   background: transparent;
